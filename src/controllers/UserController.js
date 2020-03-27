@@ -1,4 +1,5 @@
 class UserController {
+    
     constructor() {
         this.get = this.get.bind(this);
         this.create = this.create.bind(this);
