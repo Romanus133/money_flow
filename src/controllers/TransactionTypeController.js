@@ -1,4 +1,4 @@
-import Category from '../models/TransactionType.js';
+import TransactionType from '../models/TransactionType.js';
 
 class TransactionTypeController {
 
@@ -21,23 +21,23 @@ class TransactionTypeController {
         const id = this._transactiontypes.size + 1;
         const name = request.body.name;
 
-        const transactiontype = new TransactionType(id, name);
+        const transactionType = new TransactionType(id, name);
         this._transactiontypes.set(id, transactionType);
 
-        response.send(TransactionType);
+        response.send(transactionType);
     }
 
     update(request, response, next) {
 
         const id = request.params.id;
-        const transactiontype = this._transactiontypes.get(Number(id));
+        const transactionType = this._transactiontypes.get(Number(id));
 
         if (transactiontype !== undefined) {
             const name = request.body.name;
             transactiontype.name = name;
 
-            this.__transactiontypes.set(id, category);
-            response.json(transactiontype);
+            this.__transactiontypes.set(id, transactionType);
+            response.json(transactionType);
         } else {
             throw new Error('TransactionType not found');
         }
@@ -45,7 +45,7 @@ class TransactionTypeController {
 
     delete(request, response, next) {
         const id = request.params.id;
-        const transactiontype = this._transactiontypes.get(Number(id));
+        const transactiontypes = this._transactiontypes.get(Number(id));
 
         if (transactiontype !== undefined) {
             this._transactiontypes.delete(Number(id));
