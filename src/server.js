@@ -5,6 +5,8 @@ import transaction from './routers/TransactionRouter.js';
 import transactionType from './routers/TransactionTypeRouter.js';
 import category from './routers/CategoryRouter.js';
 import categoryPages from './routers/CategoryPages.js';
+import transactionTypePages from './routers/TransactionTypePages.js';
+
 import path from 'path';
 
 const __dirname = path.resolve();
@@ -27,6 +29,7 @@ app.use('/api/transactiontypes', transactionType);
 app.use('/api/categories', category);
 
 app.use('/categories', categoryPages);
+app.use('/transactiontypes', transactionTypePages);
 
 app.use((error, request, response, next) => {
     console.log(error.stack);
