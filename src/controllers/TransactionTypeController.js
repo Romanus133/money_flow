@@ -32,9 +32,9 @@ class TransactionTypeController {
         const id = request.params.id;
         const transactionType = this._transactiontypes.get(Number(id));
 
-        if (transactiontype !== undefined) {
+        if (transactionType !== undefined) {
             const name = request.body.name;
-            transactiontype.name = name;
+            transactionType.name = name;
 
             this.__transactiontypes.set(id, transactionType);
             response.json(transactionType);
@@ -45,9 +45,9 @@ class TransactionTypeController {
 
     delete(request, response, next) {
         const id = request.params.id;
-        const transactiontypes = this._transactiontypes.get(Number(id));
+        const transactionType = this._transactiontypes.get(Number(id));
 
-        if (transactiontype !== undefined) {
+        if (transactionType !== undefined) {
             this._transactiontypes.delete(Number(id));
             response.send('ok');
         } else {
