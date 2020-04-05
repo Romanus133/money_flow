@@ -1,22 +1,69 @@
+import TransactionType from '../models/TransactionType.js';
+
 class TransactionTypeController {
-    
-    constructor() {
+
+    constructor(transactiontypes) {
         this.get = this.get.bind(this);
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
+        this.listAll = this.listAll.bind(this);
+
+        this._transactiontypes = transactiontypes;
     }
+
     get(request, response, next) {
-        response.send('Get TransactionType')
+        response.json([...this._transactiontypes]);
     }
+
     create(request, response, next) {
-        response.send('Create TransactionType')
+
+        const id = this._transactiontypes.size + 1;
+        const name = request.body.name;
+
+        const transactionType = new TransactionType(id, name);
+        this._transactiontypes.set(id, transactionType);
+
+        response.send(transactionType);
     }
+
     update(request, response, next) {
-        response.send('Update TransactionType')
+
+        const id = request.params.id;
+        const transactionType = this._transactiontypes.get(Number(id));
+
+        if (transactionType !== undefined) {
+            const name = request.body.name;
+            transactionType.name = name;
+
+            this.__transactiontypes.set(id, transactionType);
+            response.json(transactionType);
+        } else {
+            throw new Error('TransactionType not found');
+        }
     }
+
     delete(request, response, next) {
-        response.send('Delete TransactionType')
+        const id = request.params.id;
+        const transactionType = this._transactiontypes.get(Number(id));
+
+        if (transactionType !== undefined) {
+            this._transactiontypes.delete(Number(id));
+            response.send('ok');
+        } else {
+            throw new Error('TransactionType not found');
+        }
+    }
+
+    listAll(request, response, next) {
+
+        const transactiontypes = [];
+
+        for (let cat of this._transactiontypes) {
+            transactiontypes.push(cat[1]);
+        }
+
+        response.render('index', {'transactiontypes': transactiontypes})
     }
 }
 
